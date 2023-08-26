@@ -15,12 +15,26 @@ morse_code_dict = {
 def encode(original_str):
     result = ''
     for i in original_str:
-        if i != ' ':
-            result += morse_code_dict[i.upper()] + ' '
-        else:
-            result += morse_code_dict[i.upper()] + '/'
+        result += morse_code_dict[i.upper()] + ' '
     return result
 
 
 def decode(original_str):
-    pass
+    result = ''
+    current_letter = ''
+    for i in original_str:
+        if i == '/':
+            result += ' '
+        elif i != ' ':
+            current_letter += i
+        else:
+            try:
+                result += list(morse_code_dict.keys())[list(morse_code_dict.values()).index(current_letter)]
+            except ValueError:
+                pass
+            current_letter = ''
+    try:
+        result += list(morse_code_dict.keys())[list(morse_code_dict.values()).index(current_letter)]
+    except ValueError:
+        pass
+    return result
